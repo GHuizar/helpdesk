@@ -1,0 +1,322 @@
+@import "tailwindcss";
+
+/* ===========================================================================
+   Paletas del Sistema de Tickets (Tailwind v4 @theme)
+
+   VISTA USUARIO (clara, cálida):
+     - mist:  azul suave (base #C5D5DE) -> acento/acciones de usuario
+     - stone: greige cálido (base #CBC8BF) -> fondos y superficies
+
+   VISTA ADMINISTRACION (neutra, oscura):
+     - ink:   grises neutros oscuros -> topbar/sidebar, texto fuerte, contraste
+     - cloud: gris frio claro -> superficies y bordes neutros
+
+   Genera utilidades: bg-mist-500, text-ink-900, border-cloud-200, bg-stone-100...
+   =========================================================================== */
+@theme {
+  /* Azul acero (USER accent) - familia de #C5D5DE pero mas profundo, menos pastel */
+  --color-mist-50:  #edf2f5;
+  --color-mist-100: #d8e3e9;
+  --color-mist-200: #b6cad4;
+  --color-mist-300: #8fadbb;
+  --color-mist-400: #668a9b;
+  --color-mist-500: #4a6c7e;
+  --color-mist-600: #3a5667;
+  --color-mist-700: #2f4654;
+  --color-mist-800: #263844;
+
+  /* Greige calido (USER neutral / fondos) - familia de #CBC8BF, mas profundo */
+  --color-stone-50:  #f6f5f2;
+  --color-stone-100: #ecebe4;
+  --color-stone-200: #dad6cb;
+  --color-stone-300: #c2bdac;
+  --color-stone-400: #9d9784;
+  --color-stone-500: #797362;
+  --color-stone-600: #5c5749;
+
+  /* Neutros oscuros (texto + chrome admin) */
+  --color-ink-400: #636a77; /* 5.4:1 sobre blanco y 4.6:1 sobre stone-100 (antes #9ca3af: 2.6:1) */
+  --color-ink-500: #5a616e; /* 6.5:1 / 5.2:1 (antes #6b7280: no pasaba sobre el fondo calido) */
+  --color-ink-600: #4b5563;
+  --color-ink-700: #374151;
+  --color-ink-800: #1f2937;
+  --color-ink-900: #111827;
+
+  /* Gris frio claro (superficies admin + bordes neutros) */
+  --color-cloud-50:  #f8fafc;
+  --color-cloud-100: #f1f5f9;
+  --color-cloud-200: #e2e8f0;
+  --color-cloud-300: #cbd5e1;
+  --color-cloud-400: #94a3b8;
+}
+
+/* ===========================================================================
+   MODO OSCURO (solo staff). Se activa con la clase .tema-oscuro en <html>.
+   En vez de tocar cada componente, redefinimos las paletas neutras (cloud/ink/
+   stone) y la superficie de las tarjetas (bg-white). El acento (mist) NO se toca.
+   La barra superior se aisla con .tema-claro (ver TopNav) para conservar su look.
+   =========================================================================== */
+.tema-oscuro {
+  --color-cloud-50:  #181b21;
+  --color-cloud-100: #14171c;
+  --color-cloud-200: #2b3038;
+  --color-cloud-300: #3a414b;
+  --color-cloud-400: #5b636e;
+
+  --color-ink-400: #8a92a0;
+  --color-ink-500: #a6adb8;
+  --color-ink-600: #c0c6cf;
+  --color-ink-700: #d6dbe2;
+  --color-ink-800: #e7eaee;
+  --color-ink-900: #f4f6f8;
+
+  --color-stone-50:  #181b21;
+  --color-stone-100: #101216;
+  --color-stone-200: #2b3038;
+  --color-stone-300: #3a414b;
+}
+/* Superficie de tarjetas/paneles (bg-white) en oscuro, distinta del fondo. */
+.tema-oscuro .bg-white { background-color: #1e222a; }
+
+/* Modo oscuro: los botones de fondo "ink" se muestran CLAROS con texto oscuro (mejor
+   legibilidad). Incluye el estado hover. */
+.tema-oscuro .bg-ink-700, .tema-oscuro .hover\:bg-ink-700:hover,
+.tema-oscuro .bg-ink-800, .tema-oscuro .hover\:bg-ink-800:hover,
+.tema-oscuro .bg-ink-900, .tema-oscuro .hover\:bg-ink-900:hover { color: #161a21; }
+.tema-oscuro .bg-ink-700, .tema-oscuro .hover\:bg-ink-700:hover { background-color: #c2c8d1; }
+.tema-oscuro .bg-ink-800, .tema-oscuro .hover\:bg-ink-800:hover { background-color: #d6dbe2; }
+.tema-oscuro .bg-ink-900, .tema-oscuro .hover\:bg-ink-900:hover { background-color: #c2c8d1; }
+
+/* Boton que en modo oscuro debe verse CLARO con texto negro (p. ej. el CTA del dashboard
+   de usuario, que en claro es bg-white). No se oscurece como las tarjetas. */
+.tema-oscuro .btn-claro-dark { background-color: #e6e9ee !important; color: #161a21 !important; }
+
+/* Notas internas en modo oscuro: amarillo OSCURO (no gris), conservando el acento amarillo. */
+.tema-oscuro .nota-box { background-color: #221d0a !important; border-color: #5a4b17 !important; }
+.tema-oscuro .nota-box .bg-amber-50,
+.tema-oscuro .nota-box .bg-amber-50\/60 { background-color: #322a0e !important; }
+.tema-oscuro .nota-box .border-amber-200 { border-color: #5a4b17 !important; }
+.tema-oscuro .nota-box .text-amber-800 { color: #fcd34d !important; }
+.tema-oscuro .nota-box .text-amber-700 { color: #ddc16c !important; }
+.tema-oscuro .nota-box textarea { color: #eef0f3; }
+
+/* Dashboard de usuario en modo oscuro:
+   - CTA "Crear ticket" mas oscuro (mist-700 en vez de mist-500).
+   - Tarjetas de "Mis tickets" un poco mas claras que el fondo, con borde mas claro y hover perceptible. */
+.tema-oscuro .dash-cta { background-color: var(--color-mist-700); }
+.tema-oscuro .dash-ticket { background-color: #262b35; border-color: #3d4450; }
+.tema-oscuro .dash-ticket:hover { background-color: #2e3440; border-color: var(--color-mist-400); }
+
+/* Excepcion: la barra superior / sheet (con .tema-claro) conservan su fondo oscuro y
+   texto claro originales (no son botones). */
+.tema-claro .bg-ink-900, .tema-claro .bg-ink-800, .tema-claro .bg-ink-700 { color: #fff; }
+.tema-claro .bg-ink-900 { background-color: #111827; }
+.tema-claro .bg-ink-800 { background-color: #1f2937; }
+.tema-claro .bg-ink-700 { background-color: #374151; }
+
+/* Aisla un subarbol del modo oscuro restaurando los valores claros (barra superior). */
+.tema-claro {
+  --color-cloud-50:  #f8fafc;
+  --color-cloud-100: #f1f5f9;
+  --color-cloud-200: #e2e8f0;
+  --color-cloud-300: #cbd5e1;
+  --color-cloud-400: #94a3b8;
+  --color-ink-400: #636a77;
+  --color-ink-500: #5a616e;
+  --color-ink-600: #4b5563;
+  --color-ink-700: #374151;
+  --color-ink-800: #1f2937;
+  --color-ink-900: #111827;
+  --color-stone-50:  #f6f5f2;
+  --color-stone-100: #ecebe4;
+  --color-stone-200: #dad6cb;
+  --color-stone-300: #c2bdac;
+}
+.tema-claro .bg-white { background-color: #fff; }
+
+/* Glow del acento (var --color-mist-600 = color del menu) SOLO en modo oscuro.
+   .glow-card: glow estatico en los laterales. .glow-hover: glow al pasar el mouse. */
+.tema-oscuro .glow-card {
+  border-color: color-mix(in srgb, var(--color-mist-600) 35%, transparent);
+  box-shadow:
+    -10px 0 30px -14px var(--color-mist-600),
+    10px 0 30px -14px var(--color-mist-600);
+}
+.tema-oscuro .glow-hover {
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.tema-oscuro .glow-hover:hover {
+  border-color: color-mix(in srgb, var(--color-mist-600) 70%, transparent);
+  box-shadow: 0 0 26px -6px var(--color-mist-600);
+}
+
+/* ===== Base ===== */
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-stone-100);
+  color: var(--color-ink-800);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Edge / IE: oculta el ojo nativo y la "X" de los inputs password (tenemos toggle propio). */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none !important;
+}
+
+/* En mobile, inputs con font-size < 16px hacen que iOS Safari haga zoom al focus. */
+@media (max-width: 640px) {
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  input[type="date"],
+  input[type="search"],
+  textarea,
+  select {
+    font-size: 16px;
+  }
+}
+
+/* ===== Scrollbars finos ===== */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--color-stone-300);
+  border-radius: 9999px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Variante para superficies oscuras (chrome admin) */
+.custom-scrollbar-dark::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.custom-scrollbar-dark::-webkit-scrollbar-thumb {
+  background: var(--color-ink-600);
+  border-radius: 9999px;
+}
+.custom-scrollbar-dark::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ===== Scrollbar GLOBAL (pagina + cualquier contenedor con overflow: listas, dropdowns, etc.).
+   Se adapta al tema por las CSS vars (stone-300 se redefine en .tema-oscuro). ===== */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-stone-300) transparent;
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-stone-300);
+  border-radius: 9999px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-mist-400);
+}
+
+/* ===========================================================================
+   MOVIMIENTO: curvas propias (Tailwind v4 genera `ease-salida`, `ease-mover`).
+   Las curvas nativas de CSS son demasiado debiles; estas dan la sensacion de
+   respuesta inmediata al entrar/salir y de aceleracion natural al desplazarse.
+   =========================================================================== */
+@theme {
+  --ease-salida: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-mover: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+/* ===========================================================================
+   TIPOGRAFIA: evita viudas en titulos y lineas huerfanas en parrafos.
+   =========================================================================== */
+h1, h2, h3, h4 {
+  text-wrap: balance;
+}
+p {
+  text-wrap: pretty;
+}
+
+/* ===========================================================================
+   SUPERFICIES DEL NAVEGADOR: seleccion, cursor de texto, placeholder y anillo
+   de foco. Vienen sin estilo de fabrica y delatan una interfaz "armada" en vez
+   de disenada; se tematizan con la paleta (se adaptan solas en modo oscuro).
+   =========================================================================== */
+::selection {
+  background-color: color-mix(in srgb, var(--color-mist-400) 40%, transparent);
+}
+body {
+  caret-color: var(--color-mist-600);
+}
+/* El placeholder del navegador queda en ~3.4:1 (ilegible). Se tematiza al gris
+   terciario del sistema, que si pasa AA, y se anula su opacidad heredada. */
+::placeholder {
+  color: var(--color-ink-400);
+  opacity: 1;
+}
+a:focus-visible,
+button:focus-visible,
+select:focus-visible,
+summary:focus-visible,
+[role='button']:focus-visible {
+  outline: 2px solid var(--color-mist-500);
+  outline-offset: 2px;
+}
+
+/* ===========================================================================
+   ACENTO USADO COMO TEXTO.
+   La paleta mist NO se invierte en oscuro a proposito: tambien se usa como
+   FONDO (botones, encabezados, el CTA del panel de usuario), y aclararla
+   romperia esos fondos. Pero mist-700 como color de TEXTO sobre una tarjeta
+   oscura queda en ~1.3:1, es decir invisible. Esta clase resuelve solo ese
+   caso: tono profundo en claro, tono claro en oscuro.
+   =========================================================================== */
+.texto-acento {
+  color: var(--color-mist-700);
+}
+.tema-oscuro .texto-acento {
+  color: var(--color-mist-300);
+}
+
+/* Spinner mas rapido: una espera identica se percibe mas corta.
+   Keyframes propios para no depender de que Tailwind emita los suyos. */
+@keyframes giro {
+  to { transform: rotate(360deg); }
+}
+.spinner-rapido {
+  animation: giro 0.6s linear infinite;
+}
+
+/* ===========================================================================
+   MOVIMIENTO REDUCIDO (preferencia del sistema). No se apaga todo: se quitan
+   los desplazamientos y se conservan opacidad/color, que ayudan a entender el
+   cambio de estado.
+   =========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-property: opacity, color, background-color, border-color, box-shadow !important;
+    transition-duration: 150ms !important;
+  }
+}

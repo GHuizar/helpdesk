@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 64" width="260" height="64" role="img" aria-label="HelpDesk">
+  <!-- Variante para fondos oscuros: marca en contorno blanco + texto blanco. -->
+  <g fill="none" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" transform="translate(0 4) scale(0.875)">
+    <path d="M21 14h22a7 7 0 0 1 7 7v13a7 7 0 0 1-7 7H31.5l-8.4 7.4A1.2 1.2 0 0 1 21 47.5V41a7 7 0 0 1-7-7V21a7 7 0 0 1 7-7z"/>
+    <path d="m24.5 28 6 6 12-12"/>
+  </g>
+  <text x="66" y="40" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Inter,sans-serif"
+        font-size="27" font-weight="800" letter-spacing="-0.6" fill="#ffffff">HelpDesk</text>
+  <text x="67" y="53" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Inter,sans-serif"
+        font-size="9.5" font-weight="700" letter-spacing="2.6" fill="#ffffff" opacity="0.7">MESA DE AYUDA</text>
+</svg>

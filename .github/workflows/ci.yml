@@ -1,0 +1,77 @@
+name: CI
+
+# Se ejecuta en cada push a main y en cada pull request.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# Si llegan varios commits seguidos, cancela la corrida anterior de la misma rama.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  backend:
+    name: Backend (Laravel)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: back
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Preparar PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          # pdo_sqlite: las pruebas corren contra SQLite en memoria (ver phpunit.xml),
+          # asi que el CI no necesita levantar MySQL.
+          extensions: mbstring, pdo_sqlite, fileinfo
+          coverage: none
+
+      - name: Cache de dependencias de Composer
+        uses: actions/cache@v4
+        with:
+          path: back/vendor
+          key: composer-${{ runner.os }}-${{ hashFiles('back/composer.lock') }}
+          restore-keys: composer-${{ runner.os }}-
+
+      - name: Instalar dependencias
+        run: composer install --no-interaction --prefer-dist --no-progress
+
+      - name: Preparar entorno
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+
+      - name: Pruebas
+        run: php artisan test
+
+  frontend:
+    name: Frontend (React)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: front
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Preparar Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: front/package-lock.json
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      # Falla con errores; los avisos (ver eslint.config.js) no tumban la corrida.
+      - name: Lint
+        run: npm run lint
+
+      - name: Build
+        run: npm run build

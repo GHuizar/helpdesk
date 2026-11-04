@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1200" width="900" height="1200"
+     preserveAspectRatio="xMidYMid slice" role="img" aria-label="">
+  <!-- Fondo abstracto del panel de branding del login. Vectorial (~2 KB) en vez de
+       una fotografia, para que el repo no cargue binarios de marca. -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0.6" y2="1">
+      <stop offset="0" stop-color="#3a5667"/>
+      <stop offset="0.55" stop-color="#2f4654"/>
+      <stop offset="1" stop-color="#1c2a33"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.25" cy="0.18" r="0.75">
+      <stop offset="0" stop-color="#8fadbb" stop-opacity="0.34"/>
+      <stop offset="1" stop-color="#8fadbb" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M60 0H0v60" fill="none" stroke="#ffffff" stroke-opacity="0.05" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="900" height="1200" fill="url(#bg)"/>
+  <rect width="900" height="1200" fill="url(#grid)"/>
+  <rect width="900" height="1200" fill="url(#glow)"/>
+
+  <!-- Formas geometricas suaves -->
+  <g fill="none" stroke="#c5d5de" stroke-opacity="0.16" stroke-width="1.5">
+    <circle cx="700" cy="240" r="190"/>
+    <circle cx="700" cy="240" r="120"/>
+    <circle cx="140" cy="960" r="230"/>
+    <circle cx="140" cy="960" r="150"/>
+  </g>
+  <g fill="#c5d5de" fill-opacity="0.07">
+    <circle cx="700" cy="240" r="58"/>
+    <circle cx="140" cy="960" r="46"/>
+  </g>
+
+  <!-- Diagonales -->
+  <g stroke="#ffffff" stroke-opacity="0.06" stroke-width="2">
+    <path d="M-100 520 L560 1200"/>
+    <path d="M40 380 L900 1240"/>
+    <path d="M420 -80 L1080 580"/>
+  </g>
+
+  <!-- Burbujas de conversacion apenas insinuadas (guino al producto) -->
+  <g fill="none" stroke="#ffffff" stroke-opacity="0.10" stroke-width="2.5" stroke-linejoin="round">
+    <path d="M300 620h150a26 26 0 0 1 26 26v70a26 26 0 0 1-26 26h-84l-40 34v-34h-26a26 26 0 0 1-26-26v-70a26 26 0 0 1 26-26z"/>
+    <path d="M560 420h120a22 22 0 0 1 22 22v54a22 22 0 0 1-22 22h-68l-32 27v-27h-20a22 22 0 0 1-22-22v-54a22 22 0 0 1 22-22z"/>
+  </g>
+</svg>

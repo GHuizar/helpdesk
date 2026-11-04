@@ -1,0 +1,62 @@
+# =============================================================================
+#  Dependencias (se instalan con composer / npm)
+# =============================================================================
+/back/vendor/
+/front/node_modules/
+
+# =============================================================================
+#  Build del frontend
+# =============================================================================
+/front/dist/
+/front/dist-ssr/
+/back/public/build/
+/back/public/hot/
+
+# =============================================================================
+#  Entorno: NUNCA subir credenciales reales
+# =============================================================================
+.env
+.env.*
+!.env.example
+
+# =============================================================================
+#  Laravel
+# =============================================================================
+/back/storage/*.key
+/back/storage/pail/
+/back/storage/logs/*.log
+/back/bootstrap/cache/*.php
+/back/public/storage
+/back/database/*.sqlite
+/back/database/*.sqlite-journal
+/back/.phpunit.result.cache
+/back/.phpunit.cache/
+/back/auth.json
+*.log
+
+# Evidencia subida por los usuarios (adjuntos de tickets)
+/back/storage/app/private/tickets/
+
+# =============================================================================
+#  Editores / herramientas locales
+# =============================================================================
+.vscode/
+.idea/
+.fleet/
+.nova/
+.zed/
+.phpactor.json
+.claude/
+
+# Skills de diseno instaladas con npx (no son parte del proyecto)
+/.agents/
+/skills-lock.json
+*.swp
+*.swo
+
+# =============================================================================
+#  Sistema operativo
+# =============================================================================
+.DS_Store
+Thumbs.db
+desktop.ini
